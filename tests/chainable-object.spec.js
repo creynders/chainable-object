@@ -2,7 +2,6 @@
 /* eslint-env node, mocha */
 
 var expect = require( 'must' );
-var sinon = require( 'sinon' );
 
 var subject = require( '../chainable-object' );
 

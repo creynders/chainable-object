@@ -21,9 +21,7 @@
   "license": "MIT",
   "devDependencies": {
     "mocha": "^2.3.3",
-    "must": "^0.13.1",
-    "require-directory": "^2.1.1",
-    "sinon": "^1.17.1"
+    "must": "^0.13.1"
   },
   "dependencies": {
     "lodash": "^3.10.1"

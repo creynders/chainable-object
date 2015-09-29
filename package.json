@@ -1,0 +1,20 @@
+{
+  "name": "accessor-object",
+  "version": "1.0.0",
+  "description": "d3 style accessor objects",
+  "main": "d3-accessor-object.js",
+  "scripts": {
+    "test": "mocha tests/*.spec.js"
+  },
+  "author": "d-pac",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^2.3.3",
+    "must": "^0.13.1",
+    "require-directory": "^2.1.1",
+    "sinon": "^1.17.1"
+  },
+  "dependencies": {
+    "lodash": "^3.9.3"
+  }
+}

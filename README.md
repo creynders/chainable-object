@@ -155,4 +155,6 @@ resolve: {
 
 ATM `chainable-object` uses the following lodash functions: `isObject`, `isArray`, `isFunction` and `each`, i.e. just replace "underscore/underscore.min" in the above example with the location of your file where you provide those functions.
 
+## License
 
+MIT

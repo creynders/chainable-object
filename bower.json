@@ -1,0 +1,21 @@
+{
+  "name": "chainable-object",
+  "version": "1.0.0",
+  "authors": [
+    "Camille Reynders"
+  ],
+  "description": "Create objects with chainable properties",
+  "main": "chainable-object.js",
+  "license": "MIT",
+  "homepage": "https://github.com/creynders/chainable-object",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~3.10.1"
+  }
+}

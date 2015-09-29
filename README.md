@@ -1,5 +1,8 @@
 # Chainable Object
 
+[![Build Status](https://travis-ci.org/creynders/chainable-object.svg)](https://travis-ci.org/creynders/chainable-object)
+[![npm version](https://badge.fury.io/js/chainable-object.svg)](http://npmjs.org/packages/chainable-object)
+
 > Create objects with chainable properties
 
 Allows the creation of D3-style chainable objects.

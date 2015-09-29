@@ -26,7 +26,7 @@
     "sinon": "^1.17.1"
   },
   "dependencies": {
-    "lodash": "^3.9.3"
+    "lodash": "^3.10.1"
   },
   "browserify": "chainable-object.js",
   "files": [

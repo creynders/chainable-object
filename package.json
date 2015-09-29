@@ -1,12 +1,23 @@
 {
-  "name": "accessor-object",
+  "name": "chainable-object",
   "version": "1.0.0",
-  "description": "d3 style accessor objects",
-  "main": "d3-accessor-object.js",
+  "description": "Create objects with chainable properties",
+  "main": "chainable-object.js",
   "scripts": {
     "test": "mocha tests/*.spec.js"
   },
-  "author": "d-pac",
+  "author": {
+    "name": "Camille Reynders",
+    "url": "http://www.creynders.be"
+  },
+  "homepage": "https://github.com/creynders/chainable-object",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/creynders/chainable-object"
+  },
+  "bugs": {
+    "url": "https://github.com/creynders/chainable-object/issues"
+  },
   "license": "MIT",
   "devDependencies": {
     "mocha": "^2.3.3",
@@ -16,5 +27,9 @@
   },
   "dependencies": {
     "lodash": "^3.9.3"
-  }
+  },
+  "browserify": "chainable-object.js",
+  "files": [
+    "chainable-object.js"
+  ]
 }

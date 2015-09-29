@@ -4,7 +4,7 @@
 var expect = require( 'must' );
 var sinon = require( 'sinon' );
 
-var subject = require( '../accessor-object' );
+var subject = require( '../chainable-object' );
 
 describe( 'AccessorObject', function(){
     it( 'should be a function', function(){

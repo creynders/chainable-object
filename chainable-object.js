@@ -2,6 +2,10 @@
 
 var _ = require( 'lodash' );
 
+function isChainableObject( obj ){
+    return !!obj.__chainable;
+}
+
 function createOrMixin( recipient,
                         accessors ){
     if( arguments.length === 1 ){
@@ -14,6 +18,7 @@ function createOrMixin( recipient,
     if( !_.isObject( accessors ) || _.isArray( accessors ) ){
         throw new Error( 'Accessor Object: "accessors" must be of type "Object"' );
     }
+    recipient.__chainable = [];
     _.each( accessors, function( mixed,
                                  name ){
         var processor;
@@ -47,8 +52,27 @@ function createOrMixin( recipient,
             }
             return this[ '_' + name ];
         };
+        recipient.__chainable.push( name );
     } );
+    
+    recipient.toObject = recipient.values = function( values ){
+        if( values ){
+            Object.keys( values ).forEach( function( key ){
+                this[ key ]( values[ key ] );
+            }, this );
+            return this;
+        }
+        var output = {};
+        this.__chainable.forEach( function( accessor ){
+            var value = this[ accessor ]();
+            output[ accessor ] = (isChainableObject( value ))
+                ? value.values()
+                : value;
+        }, this );
+        return output;
+    };
     return recipient;
 }
 
 module.exports = createOrMixin; 
+module.exports.isChainable = isChainableObject;

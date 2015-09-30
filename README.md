@@ -136,6 +136,51 @@ var instance = new AwesomeClass();
 console.log(instance.foo().bar()); //outputs: "Too drunk to fuck"
 ```
 
+## Setting multiple root values at once
+
+Nested objects can be updated by passing a vanilla object to the setters:
+
+```js
+instance = chainable({
+    foo:{
+        bar: 'a value for bar'
+    },
+    qux: 'a value for qux',
+    baz: 'a value for baz'
+});
+
+//set a nested value through the use of an object
+instance.foo({bar: 'yet another value'}); //sets the value of `bar` to "yet another value"
+console.log(instance.foo().bar()); //outputs: "yet another value"
+```
+
+However, what if you'd want to set the value of `foo` and the other root properties `qux` and `baz`? `chainable-object` adds a `values` accessor especially for this purpose:
+
+```js
+instance.values({
+    foo: {
+        bar: 'a'
+    },
+    qux: 'b',
+    baz: 'c'
+});
+console.log(instance.qux()); //outputs: 'b'
+```
+
+You can use it to retrieve a vanilla object with all the values too (aliased to `toObject`, since that's what it really does):
+
+```js
+console.log(instance.values());
+//outputs:
+{
+    foo: {
+        bar: 'a'
+    },
+    qux: 'b',
+    baz: 'c'
+}
+```
+
 ## Installation and other shizzle
 
 Use [`bower`](http://www.bower.io) or [`npm`](npmjs.org) to install `chainable-object`. You can use it on the front- and backend, but for clientside you'll need [`webpack`](https://webpack.github.io/) or [browserify](http://browserify.org/) to get it going. We'll have none of that global variable shizzle.

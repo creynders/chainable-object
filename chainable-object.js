@@ -47,7 +47,7 @@ function createOrMixin( recipient,
             if( arguments.length ){ // setter
                 this[ '_' + name ] = (!processor || processor === 'value')
                     ? value
-                    : processor.call( this, value );
+                    : processor.call( this, value, name );
                 return this;
             }
             return this[ '_' + name ];

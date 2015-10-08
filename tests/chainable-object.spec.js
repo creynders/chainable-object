@@ -83,6 +83,18 @@ describe( 'AccessorObject', function(){
 
             expect( actual.foo( 'whatever value' ) ).to.equal( actual );
         } );
+        it( 'should pass the key to the processor when set', function(){
+            var actual;
+            var instance = subject( {
+                foo: function( value,
+                               key ){
+                    actual = key;
+                    return value;
+                }
+            } );
+            instance.foo('');
+            expect( actual ).to.equal( 'foo' );
+        } );
     } );
     describe( 'without recipient', function(){
         it( 'should create an object with accessors', function(){

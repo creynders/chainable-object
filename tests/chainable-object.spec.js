@@ -6,27 +6,21 @@ var expect = require( 'must' );
 var subject = require( '../chainable-object' );
 
 describe( 'AccessorObject', function(){
-    it( 'should be a function', function(){
-        expect( subject ).to.be.a.function();
+    describe( 'module', function(){
+        it( 'should be a function', function(){
+            expect( subject ).to.be.a.function();
+        } );
     } );
-    it( 'should throw when `recipient` is provided, but not an object', function(){
-        expect( function(){
-            subject( [], {} );
-        } ).to.throw( /object/i );
-    } );
-    it( 'should throw when `accessors` is not an object', function(){
-        expect( function(){
-            subject( {}, [] );
-        } ).to.throw( /object/i );
-    } );
-    describe( 'without recipient', function(){
-        it( 'should create an object with accessors', function(){
-            var actual = subject( {
-                foo: 'value',
-                bar: 'value'
-            } );
-            expect( actual.foo ).to.be.a.function();
-            expect( actual.bar ).to.be.a.function();
+    describe( 'general functionality', function(){
+        it( 'should throw when `recipient` is provided, but not an object', function(){
+            expect( function(){
+                subject( [], {} );
+            } ).to.throw( /object/i );
+        } );
+        it( 'should throw when `accessors` is not an object', function(){
+            expect( function(){
+                subject( {}, [] );
+            } ).to.throw( /object/i );
         } );
         it( 'should allow setting and retrieving a value', function(){
             var value = {};
@@ -88,6 +82,16 @@ describe( 'AccessorObject', function(){
             } );
 
             expect( actual.foo( 'whatever value' ) ).to.equal( actual );
+        } );
+    } );
+    describe( 'without recipient', function(){
+        it( 'should create an object with accessors', function(){
+            var actual = subject( {
+                foo: 'value',
+                bar: 'value'
+            } );
+            expect( actual.foo ).to.be.a.function();
+            expect( actual.bar ).to.be.a.function();
         } );
     } );
     describe( 'with vanilla objects', function(){

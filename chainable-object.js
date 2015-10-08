@@ -6,23 +6,49 @@ function isChainableObject( obj ){
     return !!obj.__chainable;
 }
 
+function createAccessor( recipient,
+                         name,
+                         processor ){
+    recipient[ name ] = function accessor( value ){
+        if( arguments.length ){ // setter
+            this[ '_' + name ] = (!processor || processor === 'value')
+                ? value
+                : processor.call( this, value, name );
+            return this;
+        }
+        // getter
+        return this[ '_' + name ];
+    };
+    recipient.__chainable.push( name );
+}
+
 function createOrMixin( recipient,
                         accessors ){
-    if( arguments.length === 1 ){
-        accessors = recipient;
-        recipient = {};
+    switch( arguments.length ){
+        case 1:
+            accessors = recipient;
+        // falls through
+        case 0:
+            recipient = {};
+            break;
     }
-    if( !_.isObject( recipient ) || _.isArray( recipient ) ){
+    if( typeof recipient !== 'undefined' && !_.isObject( recipient ) ){
         throw new Error( 'Accessor Object: "recipient" must be of type "Object"' );
     }
-    if( !_.isObject( accessors ) || _.isArray( accessors ) ){
-        throw new Error( 'Accessor Object: "accessors" must be of type "Object"' );
+    if( typeof accessors !== 'undefined' && !_.isObject( accessors ) && !_.isArray( accessors ) ){
+        throw new Error( 'Accessor Object: "accessors" must be of type "Object" or "Array"' );
     }
     recipient.__chainable = [];
-    recipient.get = recipient.set = function( key,
-                                              value ){
-        if( arguments.length === 2 ){
-            return this[ key ]( value );
+    recipient.set = function( key,
+                              value ){
+        if( typeof this[ key ] === 'undefined' ){
+            createAccessor( this, key, 'value' );
+        }
+        return this[ key ]( value );
+    };
+    recipient.get = function( key, defaultValue ){
+        if( typeof this[ key ] === 'undefined' ){
+            return defaultValue;
         }
         return this[ key ]();
     };
@@ -50,16 +76,7 @@ function createOrMixin( recipient,
             recipient[ '_' + name ] = mixed;
             processor = 'value';
         }
-        recipient[ name ] = function accessor( value ){
-            if( arguments.length ){ // setter
-                this[ '_' + name ] = (!processor || processor === 'value')
-                    ? value
-                    : processor.call( this, value, name );
-                return this;
-            }
-            return this[ '_' + name ];
-        };
-        recipient.__chainable.push( name );
+        createAccessor( recipient, name, processor );
     } );
 
     recipient.toObject = recipient.values = function( values ){

@@ -12,12 +12,12 @@ describe( 'AccessorObject', function(){
         } );
         it( 'should throw when `recipient` is provided, but not an object', function(){
             expect( function(){
-                subject( [], {} );
+                subject( 9 );
             } ).to.throw( /object/i );
         } );
         it( 'should throw when `accessors` is not an object', function(){
             expect( function(){
-                subject( {}, [] );
+                subject( {}, 9 );
             } ).to.throw( /object/i );
         } );
     } );
@@ -136,6 +136,16 @@ describe( 'AccessorObject', function(){
             } );
             instance.set( 'foo', 'a modified value' );
             expect( instance.foo() ).to.equal( 'a modified value' );
+        } );
+        it( '`set` should allow setting undeclared properties', function(){
+            var instance = subject();
+            instance.set( 'foo', 'a value for foo' );
+            expect( instance.foo() ).to.equal( 'a value for foo' );
+        } );
+        it( '`get` should allow declaring default values', function(){
+            var instance = subject();
+            var actual = instance.get( 'foo', 'a value for foo' );
+            expect( actual ).to.equal( 'a value for foo' );
         } );
     } );
     describe( 'without recipient', function(){

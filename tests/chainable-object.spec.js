@@ -10,8 +10,6 @@ describe( 'AccessorObject', function(){
         it( 'should be a function', function(){
             expect( subject ).to.be.a.function();
         } );
-    } );
-    describe( 'general functionality', function(){
         it( 'should throw when `recipient` is provided, but not an object', function(){
             expect( function(){
                 subject( [], {} );
@@ -22,6 +20,8 @@ describe( 'AccessorObject', function(){
                 subject( {}, [] );
             } ).to.throw( /object/i );
         } );
+    } );
+    describe( 'instances', function(){
         it( 'should allow setting and retrieving a value', function(){
             var value = {};
             var actual = subject( {
@@ -92,8 +92,37 @@ describe( 'AccessorObject', function(){
                     return value;
                 }
             } );
-            instance.foo('');
+            instance.foo( '' );
             expect( actual ).to.equal( 'foo' );
+        } );
+        it( 'should allow retrieving root values with `values`', function(){
+            var values = {
+                foo: {
+                    bar: 'bar'
+                },
+                baz: 'baz',
+                qux: 'qux'
+            };
+            var instance = subject( values );
+            expect( instance.values() ).to.eql( values );
+        } );
+        it( 'should allow setting root values with `values`', function(){
+            var instance = subject( {
+                foo: {
+                    bar: 'bar'
+                },
+                baz: 'baz',
+                qux: 'qux'
+            } );
+            var values = {
+                foo: {
+                    bar: 'modified bar'
+                },
+                baz: 'modified baz',
+                qux: 'modified qux'
+            };
+            instance.values( values );
+            expect( instance.values() ).to.eql( values );
         } );
     } );
     describe( 'without recipient', function(){

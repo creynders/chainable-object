@@ -56,6 +56,20 @@ instance.foo().bar('burn motherfucker, burn');
 console.log(instance.foo().bar()); //outputs: "BURN MOTHERFUCKER, BURN !!!"
 ```
 
+**v1.2.0 and up**
+
+Processors receive the name of the property as a second argument:
+
+```js
+var instance = chainable({
+  foo: function(value, name){
+    console.log('name:', name);
+    return value;
+  }
+});
+instance.foo('a value for foo'); //output: 'name: foo'
+```
+
 ## Combining processors and initial values
 
 Just wrap 'm in an Array. The processor _always_ goes first!
@@ -138,6 +152,8 @@ console.log(instance.foo().bar()); //outputs: "Too drunk to fuck"
 
 ## Setting multiple root values at once
 
+**v1.1.0 and up**
+
 Nested objects can be updated by passing a vanilla object to the setters:
 
 ```js
@@ -179,6 +195,35 @@ console.log(instance.values());
     qux: 'b',
     baz: 'c'
 }
+```
+
+## `get` and `set`
+
+**v1.2.0 and up**
+
+Another way to access the properties (with a bit more leeway) is to use `get` and `set`:
+
+```js
+var instance = chainable(); 
+instance.set('foo', 900); // creates a 'foo' method
+console.log(instance.foo()); // output: 900
+console.log(instance.get('foo')); // output: 900
+```
+
+`get` allows you to pass default values, in case the property has not been set yet:
+
+```js
+var instance = chainable(); 
+var value = instance.get('foo', 'a default value for foo');
+console.log(value); // outputs: 'a default value for foo'
+```
+
+`get` will **not** create a property, i.e. this will throw:
+
+```js
+var instance = chainable();
+instance.get('foo', 'a default value for foo');
+instance.foo(); // throws: TypeError: instance.foo is not a function
 ```
 
 ## Installation and other shizzle

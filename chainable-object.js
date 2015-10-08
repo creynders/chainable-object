@@ -19,6 +19,13 @@ function createOrMixin( recipient,
         throw new Error( 'Accessor Object: "accessors" must be of type "Object"' );
     }
     recipient.__chainable = [];
+    recipient.get = recipient.set = function( key,
+                                              value ){
+        if( arguments.length === 2 ){
+            return this[ key ]( value );
+        }
+        return this[ key ]();
+    };
     _.each( accessors, function( mixed,
                                  name ){
         var processor;
@@ -54,7 +61,7 @@ function createOrMixin( recipient,
         };
         recipient.__chainable.push( name );
     } );
-    
+
     recipient.toObject = recipient.values = function( values ){
         if( values ){
             Object.keys( values ).forEach( function( key ){
@@ -74,5 +81,5 @@ function createOrMixin( recipient,
     return recipient;
 }
 
-module.exports = createOrMixin; 
+module.exports = createOrMixin;
 module.exports.isChainable = isChainableObject;

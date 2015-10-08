@@ -124,6 +124,19 @@ describe( 'AccessorObject', function(){
             instance.values( values );
             expect( instance.values() ).to.eql( values );
         } );
+        it( 'should allow `get`ting a value', function(){
+            var instance = subject( {
+                foo: 'a value'
+            } );
+            expect( instance.get( 'foo' ) ).to.equal( 'a value' );
+        } );
+        it( 'should allow `set`ting a value', function(){
+            var instance = subject( {
+                foo: 'a value'
+            } );
+            instance.set( 'foo', 'a modified value' );
+            expect( instance.foo() ).to.equal( 'a modified value' );
+        } );
     } );
     describe( 'without recipient', function(){
         it( 'should create an object with accessors', function(){
